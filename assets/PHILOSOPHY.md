@@ -42,6 +42,8 @@ Ensure standard **HTML tags (`<strong>`)** are used consistently for bold inline
 To maintain an accessible, highly professional engineering tone, adhere strictly to the following editorial standards when authoring article content:
 
 - **Research-First Approach:** Always prioritize conducting targeted web research and consulting active API reference documentation prior to authoring. Ensure absolute technical validity and avoid writing code based on outdated usage patterns.
+  - In case the user wants to generate an article based on a codebase, make sure to ask for the codebase and read it before writing the article.
+  - Otherwise, if the user wants to generate an article based on a topic, make sure to do web research to make sure you have the most up-to-date information on the topic before writing the article.
 - **Straightforward & Accessible Language:** Avoid academic density, excessive jargon, or overly complicated phrasing. Use clear, pragmatic language tailored to practical engineering workflows.
 - **Brevity & Sentence Structure:** Keep sentences punchy, short, and highly scannable to minimize cognitive load. Avoid long, meandering, multi-clause explanatory blocks.
 - **Affirmative Framing (Avoid 'Not X but Y'):** State concepts, definitions, and design decisions affirmatively rather than using verbose negative framing. Instead of stating _"Framework X is not a complete platform but rather a targeted runtime library"_, assert directly: _"Framework X provides a specialized runtime library"_.

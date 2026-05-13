@@ -63,6 +63,7 @@ Always deliver a single-page HTML document that:
 8. Uses `<strong>` tags for bold emphasis (never markdown `**bold**` in HTML text).
 9. Includes meaningful interactive UI behavior for concept explanation when the topic benefits from simulation, lifecycle, or state visualization.
 10. Ensures every UI control in the interactive section is fully wired and functional.
+11. If extra JavaScript or styling is needed for the interactive elements, add it to the corresponding `script.js` or `style.css` instead of bloating the article HTML with inline styles or scripts.
 
 ## Hard Constraints
 - No fake website nav bars, branding strips, sidebars, ads, or dashboard filler.
@@ -108,6 +109,10 @@ Every visible control must have an effect. If a control has no functional purpos
 - Interactive elements are functional end-to-end
 - No fake UI or placeholder artifacts
 - Prose is concise and technically accurate
+
+## Be Creative with Visuals
+
+Even though there is a layout guide that you need to follow, you have a lot of freedom to be creative with the visuals and interactive elements. Use inline SVGs, CSS animations, and dynamic DOM updates to create engaging learning experiences that go beyond static text.
 
 ## Example Requests That Should Trigger This Skill
 1. "Create an interactive HTML article that teaches Kafka consumer group rebalancing."
