@@ -47,6 +47,7 @@ To maintain an accessible, highly professional engineering tone, adhere strictly
 - **Affirmative Framing (Avoid 'Not X but Y'):** State concepts, definitions, and design decisions affirmatively rather than using verbose negative framing. Instead of stating _"Framework X is not a complete platform but rather a targeted runtime library"_, assert directly: _"Framework X provides a specialized runtime library"_.
 - **Limit Emdashes:** Minimize the use of emdashes (`—`). Break complex contextual thoughts into clean independent sentences or standard parentheses instead.
 - **Visual Explanations over Text Walls:** Prioritize rich visual storytelling and exercise full creative flexibility to design premium interactive demonstrations. Whenever introducing abstract system lifecycles, internal state topologies, client-server handshake protocols, or concurrent data pipelines, leverage custom, responsive inline SVG diagrams, animated state flows, or state-of-the-art interactive widgets (such as fully functional state simulators, live code/parameter playgrounds, and interactive visual comparisons) to demonstrate concepts visually instead of relying on long blocks of descriptive text. Ensure these elements feel dynamic, visually polished, and immediately engaging to the reader.
+- **Diagrams Must have Captions:** Every diagram, figure, or visual asset must include a descriptive caption directly below it using the `<figcaption>` tag to provide context and explanation.
 
 ## 4. Structural Elements & Technical Depth
 
