@@ -23,12 +23,12 @@ Import premium, highly legible Google Fonts via the document `<head>`:
 - **Headings:** `Outfit` (Weights: 500, 600, 700, 800)
 - **Code/Monospace:** `Fira Code` (Weights: 400, 500)
 
-### Shared Centralized Stylesheet (`article_base.css`)
+### Shared Centralized Stylesheet (`style.css`)
 
 To ensure absolute design consistency and eliminate CSS duplication across files, all foundational variables, typography rules, responsive layout measures, and standard component modules (Table of Contents, callouts, code blocks) are centralized inside an external shared stylesheet. Always reference this stylesheet via the document `<head>` instead of writing full inline styles:
 
 ```html
-<link rel="stylesheet" href="./article_base.css" />
+<link rel="stylesheet" href="./style.css" />
 ```
 
 Custom inline styles should only be added if an article introduces entirely novel data visualizations, custom component widgets, or bespoke interactive state elements.
@@ -77,8 +77,8 @@ Articles that feature embedded JavaScript widgets must adhere to strict function
 
 ## 6. Complete Article HTML Boilerplate & Shared Scripts
 
-Use the base skeleton template attached below to establish identical structure for future topics. The template automatically references the shared `article_base.css` and the central `article_base.js` utility script (which handles global enhancements like code-block copying):
+Use the base skeleton template attached below to establish identical structure for future topics. The template automatically references the shared `style.css` and the central `script.js` utility script (which handles global enhancements like code-block copying):
 
 [template.html](./template.html)
 
-Future modular or shared JavaScript utilities should also be placed alongside `article_base.js` to keep the article body documents lightweight, focused, and distraction-free.
+Future modular or shared JavaScript utilities should also be placed alongside `script.js` to keep the article body documents lightweight, focused, and distraction-free.

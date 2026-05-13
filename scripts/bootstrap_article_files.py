@@ -11,7 +11,7 @@ from pathlib import Path
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
-            "Copy article_base.css, article_base.js, and template.html from this skill's "
+            "Copy style.css, script.js, and template.html from this skill's "
             "assets folder into a target directory."
         )
     )
@@ -53,8 +53,8 @@ def main() -> int:
     assets_dir = skill_dir / "assets"
 
     required_assets = {
-        "article_base.css": "article_base.css",
-        "article_base.js": "article_base.js",
+        "style.css": "style.css",
+        "script.js": "script.js",
         "template.html": args.article_file or "template.html",
     }
 

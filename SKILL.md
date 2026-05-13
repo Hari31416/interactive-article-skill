@@ -11,14 +11,14 @@ Produce a premium, distraction-free, single-page HTML article that explains tech
 This skill must follow repository conventions from:
 - `./assets/PHILOSOPHY.md` guidance (captured in this skill)
 - `./assets/template.html`
-- `./assets/article_base.css`
-- `./assets/article_base.js`
+- `./assets/style.css`
+- `./assets/script.js`
 
 ## Bundled Resources
 Read these files before generating output:
 - `./assets/template.html` (base page structure)
-- `./assets/article_base.css` (layout and typography system)
-- `./assets/article_base.js` (copy-button behavior for code blocks)
+- `./assets/style.css` (layout and typography system)
+- `./assets/script.js` (copy-button behavior for code blocks)
 - `./scripts/bootstrap_article_files.py` (one-command file bootstrapper)
 
 ## Fast Bootstrap (Recommended)
@@ -35,9 +35,11 @@ python ./interactive-article-skill/scripts/bootstrap_article_files.py . --articl
 ```
 
 This copies:
-- `article_base.css`
-- `article_base.js`
+- `style.css`
+- `script.js`
 - `template.html` -> `<topic>.html` (or `template.html` if `--article-file` is omitted)
+
+> Note: Since there are more than one file getting copied, try to copy teh files inside a new directory to avoid confusion. For example, you can create a new directory called `kafka-rebalance-article` and copy the files there.
 
 ## Trigger Guidance
 Use this skill when the user asks for:
@@ -51,8 +53,8 @@ Use this skill when the user asks for:
 Always deliver a single-page HTML document that:
 1. Uses the `template.html` structure as the baseline.
 2. References shared assets:
-   - `<link rel="stylesheet" href="./article_base.css" />`
-   - `<script src="./article_base.js"></script>`
+   - `<link rel="stylesheet" href="./style.css" />`
+   - `<script src="./script.js"></script>`
 3. Keeps a centered reading layout and avoids fake product chrome.
 4. Includes one `<h1 class="article-title">` in the article header.
 5. Includes a collapsible table of contents using semantic `<details>` + nested lists.
@@ -65,13 +67,13 @@ Always deliver a single-page HTML document that:
 ## Hard Constraints
 - No fake website nav bars, branding strips, sidebars, ads, or dashboard filler.
 - No decorative placeholders, dummy controls, or non-functional "mock" widgets.
-- Do not duplicate base typography/layout styles inline when `article_base.css` already defines them.
+- Do not duplicate base typography/layout styles inline when `style.css` already defines them.
 - Keep language clear, practical, and concise.
 - Prefer affirmative wording. Avoid "not X but Y" framing.
 - Minimize em dashes.
 
 ## Workflow
-1. Read `PHILOSOPHY.md`, `template.html`, `article_base.css`, and `article_base.js` before writing.
+1. Read `PHILOSOPHY.md`, `template.html`, `style.css`, and `script.js` before writing.
    - In this skill package, use the bundled files in `./assets/`.
    - Prefer bootstrapping with `./scripts/bootstrap_article_files.py` so setup is consistent.
 2. Build an article outline with teaching flow:
