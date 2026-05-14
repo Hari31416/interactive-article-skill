@@ -20,6 +20,7 @@ Read these files before generating output:
 - `./assets/style.css` (layout and typography system)
 - `./assets/script.js` (copy-button behavior for code blocks)
 - `./scripts/bootstrap_article_files.py` (one-command file bootstrapper)
+- `./scripts/merge_standalone_html.py` (merge referenced CSS/JS files inline for standalone output)
 
 ## Fast Bootstrap (Recommended)
 Use this script to copy the base article files into a working directory:
@@ -40,6 +41,22 @@ This copies:
 - `template.html` -> `<topic>.html` (or `template.html` if `--article-file` is omitted)
 
 > Note: Since there are more than one file getting copied, try to copy teh files inside a new directory to avoid confusion. For example, you can create a new directory called `kafka-rebalance-article` and copy the files there.
+
+## Creating a Standalone Single-File HTML
+
+If the user specifically asks to convert the article to a standalone HTML file with all styles and scripts embedded inline, use this script after generating the article HTML.
+
+```bash
+python <skill-path>/scripts/merge_standalone_html.py <input-html> --output <output-html>
+```
+
+Example:
+
+```bash
+python ./interactive-article-skill/scripts/merge_standalone_html.py kafka-rebalance.html --output standalone-kafka-rebalance.html
+```
+
+This will parse the input HTML, locate any referenced local stylesheets and scripts (like `./style.css` and `./script.js`), read their contents, and inline them into `<style>` and `<script>` blocks within the HTML output.
 
 ## Trigger Guidance
 Use this skill when the user asks for:
