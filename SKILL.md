@@ -8,19 +8,11 @@ description: Create polished, single-page technical HTML articles that teach top
 ## Goal
 Produce a premium, distraction-free, single-page HTML article that explains technical topics with concise prose, strong structure, and real interactive learning elements.
 
-This skill must follow repository conventions from:
-- `./assets/PHILOSOPHY.md` guidance (captured in this skill)
-- `./assets/template.html`
-- `./assets/style.css`
-- `./assets/script.js`
-
-## Bundled Resources
-Read these files before generating output:
+## Bundled Resources & Conventions
+Follow guidance from `./assets/PHILOSOPHY.md` and read these files before generating output:
 - `./assets/template.html` (base page structure)
 - `./assets/style.css` (layout and typography system)
 - `./assets/script.js` (copy-button behavior for code blocks)
-- `./scripts/bootstrap_article_files.py` (one-command file bootstrapper)
-- `./scripts/merge_standalone_html.py` (merge referenced CSS/JS files inline for standalone output)
 
 ## Fast Bootstrap (Recommended)
 Use this script to copy the base article files into a working directory:
@@ -78,8 +70,8 @@ Always deliver a single-page HTML document that:
 6. Uses clear heading hierarchy with mapped anchor IDs (`h2`/`h3`).
 7. Uses `.code-container` blocks with `.code-header`, `.code-label`, and `.copy-btn`.
 8. Uses `<strong>` tags for bold emphasis (never markdown `**bold**` in HTML text).
-9. Includes meaningful interactive UI behavior for concept explanation when the topic benefits from simulation, lifecycle, or state visualization.
-10. Ensures every UI control in the interactive section is fully wired and functional.
+9. Includes multiple smaller, focused interactive widgets placed contextually throughout the article for concept explanation when topics benefit from simulation, lifecycle, or state visualization.
+10. Ensures every UI control across all interactive widgets is fully wired and functional.
 11. If extra JavaScript or styling is needed for the interactive elements, add it to the corresponding `script.js` or `style.css` instead of bloating the article HTML with inline styles or scripts.
 
 ## Hard Constraints
@@ -109,13 +101,12 @@ Always deliver a single-page HTML document that:
 
 ## Interactive Component Rules
 When adding simulations/widgets:
-- Maintain a local state object.
+- Prefer multiple smaller, targeted interactive widgets placed contextually alongside the concepts they explain throughout the article, rather than a single large monolithic simulation at the end.
+- Maintain a local state object (or separate state objects per widget).
 - Bind explicit event listeners for each control.
 - Re-render all dependent UI elements on state change.
 - Keep controls labeled and understandable.
 - Reflect state transitions visibly (status text, counters, highlighted steps, diagrams, etc.).
-
-Every visible control must have an effect. If a control has no functional purpose, remove it.
 
 ## Quality Checklist (Run Before Final Output)
 - Single-page HTML only
