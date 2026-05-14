@@ -101,12 +101,13 @@ Always deliver a single-page HTML document that:
 
 ## Interactive Component Rules
 When adding simulations/widgets:
-- Prefer multiple smaller, targeted interactive widgets placed contextually alongside the concepts they explain throughout the article, rather than a single large monolithic simulation at the end.
+- Prefer multiple smaller, targeted interactive widgets placed contextually alongside the concepts they explain throughout the article, rather than one single large monolithic simulation at the end.
 - Maintain a local state object (or separate state objects per widget).
 - Bind explicit event listeners for each control.
 - Re-render all dependent UI elements on state change.
 - Keep controls labeled and understandable.
 - Reflect state transitions visibly (status text, counters, highlighted steps, diagrams, etc.).
+- Do not create interactive components for the sake of creating them. Only create them if they add value to the article. These should be used to make the reader understand the complex concepts visually and interactively.
 
 ## Quality Checklist (Run Before Final Output)
 - Single-page HTML only
