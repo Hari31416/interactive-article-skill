@@ -4,11 +4,8 @@
 from __future__ import annotations
 
 import argparse
-import logging
 import re
 from pathlib import Path
-
-logger = logging.getLogger(__name__)
 
 
 def parse_args() -> argparse.Namespace:
@@ -57,9 +54,11 @@ def merge_html(input_path: Path, output_path: Path) -> None:
                         raise FileNotFoundError(
                             f"Referenced stylesheet not found: {css_path}"
                         )
-                    logger.info(f"Inlining stylesheet: {href}")
+                    print(f"Inlining stylesheet: {href}")
                     css_content = css_path.read_text(encoding="utf-8")
-                    replacement = f"<style>\n/* Inlined from {href} */\n{css_content}\n</style>"
+                    replacement = (
+                        f"<style>\n/* Inlined from {href} */\n{css_content}\n</style>"
+                    )
                     content = (
                         content[: match.start()] + replacement + content[match.end() :]
                     )
@@ -79,7 +78,7 @@ def merge_html(input_path: Path, output_path: Path) -> None:
                 js_path = (base_dir / src).resolve()
                 if not js_path.exists():
                     raise FileNotFoundError(f"Referenced script not found: {js_path}")
-                logger.info(f"Inlining script: {src}")
+                print(f"Inlining script: {src}")
                 js_content = js_path.read_text(encoding="utf-8")
                 replacement = (
                     f"<script>\n/* Inlined from {src} */\n{js_content}\n</script>"
@@ -91,20 +90,19 @@ def merge_html(input_path: Path, output_path: Path) -> None:
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(content, encoding="utf-8")
-    logger.info(f"Successfully generated standalone HTML: {output_path}")
-    logger.info(f"  Inlined CSS  : {inlined_css if inlined_css else 'none'}")
-    logger.info(f"  Inlined JS   : {inlined_js if inlined_js else 'none'}")
+    print(f"Successfully generated standalone HTML: {output_path}")
+    print(f"  Inlined CSS  : {inlined_css if inlined_css else 'none'}")
+    print(f"  Inlined JS   : {inlined_js if inlined_js else 'none'}")
     skipped = [
         m.group(0)[:60].replace("\n", " ")
         for m in link_pattern.finditer(content)
         if "stylesheet" in m.group(0).lower()
     ]
     if skipped:
-        logger.warning(f"  Skipped (external) stylesheets: {skipped}")
+        print(f"  Skipped (external) stylesheets: {skipped}")
 
 
 def main() -> int:
-    logging.basicConfig(level=logging.INFO, format="%(message)s")
     args = parse_args()
 
     input_path = Path(args.input_html).expanduser().resolve()
@@ -115,7 +113,7 @@ def main() -> int:
     try:
         merge_html(input_path, output_path)
     except Exception as e:
-        logger.error(f"Error: {e}")
+        print(f"Error: {e}")
         return 1
 
     return 0
