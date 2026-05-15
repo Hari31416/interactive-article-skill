@@ -25,6 +25,10 @@
     --font-mono: "Fira Code", monospace;
 }
 
+::selection {
+    background-color: #bfdbfe;
+    color: #1e3a8a;
+}
 body {
     background-color: var(--bg-body);
     color: var(--text-main);
@@ -99,7 +103,6 @@ body {
 .toc-content {
     margin-top: 1rem;
     padding-top: 0.75rem;
-    border-top: 1px solid #e2e8f0;
 }
 
 .table-of-contents ul {
@@ -902,4 +905,8 @@ input[type="range"]::-webkit-slider-thumb:hover {
         background: #3b0000;
         border-color: #ef4444;
     }
+::selection {
+    background-color: rgba(59, 130, 246, 0.35);
+    color: #f1f5f9;
+}
 }

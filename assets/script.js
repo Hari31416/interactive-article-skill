@@ -83,8 +83,10 @@ function initQuizzes() {
                 quiz.dataset.completed = "true";
                 options.forEach(opt => {
                     opt.classList.add('is-disabled');
-                    if (opt.dataset.correct === "true") opt.classList.add('is-correct');
-                    else if (opt === option) opt.classList.add('is-incorrect');
+                    // Only reveal the correct answer if the player got it right,
+                    // or if there is no retry — avoids spoiling the answer on a wrong guess.
+                    if (opt.dataset.correct === "true" && (isCorrect || !allowRetry)) opt.classList.add('is-correct');
+                    else if (opt === option && !isCorrect) opt.classList.add('is-incorrect');
                 });
 
                 if (feedback) {
