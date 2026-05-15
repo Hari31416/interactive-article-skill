@@ -76,19 +76,33 @@ When requested to produce a single-page HTML article, the target deliverable is 
 - **Shared Centralized Stylesheet (`style.css`):** To ensure absolute design consistency and eliminate CSS duplication across files, all foundational variables, typography rules, responsive layout measures, and standard component modules (Table of Contents, callouts, code blocks) are centralized inside `./style.css`. Always reference this external stylesheet via `<link rel="stylesheet" href="./style.css" />` instead of writing full inline styles or duplicating base styles inline. Custom inline styles should only be added if an article introduces entirely novel data visualizations, custom component widgets, or bespoke interactive state elements.
 - **Bold Text Rendering:** Ensure standard **HTML tags (`<strong>`)** are used consistently for bold inline highlights. **Never** leak literal markdown asterisks (`**bold**`) directly into the emitted HTML source paragraphs.
 
-### 3. Research & Editorial Voice Guidelines
-To maintain an accessible, highly professional engineering tone, adhere strictly to the following editorial standards:
-- **Research-First Approach:** Always prioritize conducting targeted web research and consulting active API reference documentation prior to authoring. Ensure absolute technical validity and avoid writing code based on outdated usage patterns.
-  - In case the user wants to generate an article based on a codebase, make sure to ask for the codebase and read it before writing the article.
-  - Otherwise, if the user wants to generate an article based on a topic, make sure to do web research to make sure you have the most up-to-date information on the topic before writing the article.
-- **Straightforward & Accessible Language:** Avoid academic density, excessive jargon, or overly complicated phrasing. Use clear, pragmatic language tailored to practical engineering workflows. Keep language clear, practical, and concise.
-- **Brevity & Sentence Structure:** Keep sentences punchy, short, and highly scannable to minimize cognitive load. Avoid long, meandering, multi-clause explanatory blocks.
-- **Affirmative Framing (Avoid 'Not X but Y'):** State concepts, definitions, and design decisions affirmatively rather than using verbose negative framing. Instead of stating *"Framework X is not a complete platform but rather a targeted runtime library"*, assert directly: *"Framework X provides a specialized runtime library"*.
-- **Limit Emdashes:** Minimize the use of emdashes (`—`). Break complex contextual thoughts into clean independent sentences or standard parentheses instead.
-- **Visual Explanations over Text Walls:** Prioritize rich visual storytelling and exercise full creative flexibility to design premium interactive demonstrations. Whenever introducing abstract system lifecycles, internal state topologies, client-server handshake protocols, or concurrent data pipelines, leverage custom, responsive inline SVG diagrams, animated state flows, or state-of-the-art interactive widgets (such as fully functional state simulators, live code/parameter playgrounds, and interactive visual comparisons) to demonstrate concepts visually instead of relying on long blocks of descriptive text. Ensure these elements feel dynamic, visually polished, and immediately engaging to the reader.
-- **Diagrams Must have Captions:** Every diagram, figure, or visual asset must include a descriptive caption directly below it using the `<figcaption>` tag to provide context and explanation.
+### 3. Research & Technical Foundation
+To maintain absolute technical validity and professional authority, adhere to these standards:
+- **Research-First Approach:** Always conduct targeted web research and consult active API documentation prior to authoring. Avoid writing code or explanations based on outdated patterns or "general knowledge."
+- **Codebase Auditing:** If generating an article based on a specific repository, you must read the codebase thoroughly to understand implementation details before writing.
+- **Fact-Checking Primitives:** Ensure internal system mechanics (handshakes, state transitions, constraints) are described with 100% accuracy.
 
-### 4. Structural Elements & Technical Depth
+### 4. Language, Tone & Editorial Voice
+The article's voice must be spartan, informative, and authoritative. Use clear, simple language and follow these strict editorial rules:
+- **Spartan & Active Voice:** Use short, impactful sentences. Focus on practical, actionable insights. Use active voice and avoid passive constructions.
+- **Direct Address:** Use "you" and "your" to directly address the reader. This creates a more engaging, instructional experience.
+- **Support with Data:** Use data and concrete examples to support claims. Avoid generalizations, metaphors, and clichés.
+- **Punctuation Constraints:** Use only commas, periods, or other standard punctuation. Never use em dashes (—) or semicolons. If you need to connect ideas, use a period.
+- **Eliminate Complex Constructions:** Avoid "not just X, but also Y" patterns. State concepts affirmatively and directly.
+- **Banned Words & Filler:** Avoid unnecessary adjectives and adverbs. Do not use: *comprehensive, robust, seamless, delve, unlock, leverage, landscape, empowers, or transformative.*
+- **No Setup Language:** Do not use common setup language like "in conclusion" or "in closing."
+- **Clean HTML Output:** Ensure no markdown, asterisks, or literal formatting symbols leak into the final HTML paragraphs. Use standard HTML tags (<strong>, <em>) for emphasis.
+- **Brevity & Sentence Structure:** Keep sentences short and highly scannable. Minimize cognitive load by breaking long, meandering, multi-clause blocks into independent thoughts.
+- **No Flowery Language:** Avoid flowery language, metaphors, and clichés.
+- **No Fluff:** Remove any content that does not directly advance the reader's understanding of the technical subject matter.
+
+### 5. Visual Storytelling & Interactivity
+Prioritize rich visual demonstrations over "walls of text."
+- **Visual Explanations over Text Walls:** Whenever introducing abstract system lifecycles, topologies, or protocols, leverage custom inline SVG diagrams, animated state flows, or interactive widgets. Demonstrate concepts visually instead of relying on long descriptive paragraphs.
+- **Diagram Captions:** Every diagram, figure, or visual asset must include a descriptive, centered caption using the `<figcaption>` tag.
+- **Emotional Engagement:** Ensure interactive elements feel dynamic, visually polished, and immediately engaging. Use micro-animations and transitions to provide "delight" during the learning process.
+
+### 6. Structural Elements & Technical Depth
 Articles should target highly actionable, complete engineering guides covering internal primitives, comparison matrixes, edge-case mitigation, and production lifecycle considerations.
 - **Headings & Hierarchy:** Use a single `<h1>` for the primary title. Map modular topics to `<h2>` sections and nested details to `<h3>`. Maintain comfortable top/bottom margins (e.g., `margin: 3rem 0 1.25rem 0` for `<h2>`). Use clear heading hierarchy with mapped anchor IDs (`h2`/`h3`).
 - **Table of Contents (ToC):** Include a collapsible, hierarchical Table of Contents directly below the primary header for comprehensive articles. Use native semantic HTML (`<details>` and `<summary>`) inside `<nav class="table-of-contents">`, containing nested lists (`<ul>`) mapped to the specific `id` attributes of both primary (`<h2>`) and secondary (`<h3>`) sections to provide an immediate, expandable navigation overview.
@@ -151,11 +165,115 @@ Articles that feature embedded JavaScript widgets/simulations must adhere to str
 - Code blocks use copy-button structure
 - Interactive elements are functional end-to-end (100% active functional scope)
 - No fake UI, mock controls, or placeholder artifacts
-- Prose is concise, affirmative, and technically accurate
+- Prose is spartan, active, and technically accurate
+- No em dashes (—) or semicolons used in text
+- Direct address ("you/your") used throughout
+- No generalizations, metaphors, or cliches
 - Every diagram/visual asset includes a descriptive `<figcaption>` caption
 
 ## Be Creative with Visuals
 Even though there is a layout guide that you need to follow, you have a lot of freedom to be creative with the visuals and interactive elements. Use inline SVGs, CSS animations, and dynamic DOM updates to create engaging learning experiences that go beyond static text.
+
+## Advanced Interactive Components
+Use these specialized components to increase engagement and reinforce learning. The CSS and JS for these are already included in the shared `style.css` and `script.js`.
+
+### 1. Interactive Flashcards
+Best for terminology, constants, or key constraints. Wrap them in a `.flashcard-grid` for layout.
+```html
+<div class="flashcard-grid">
+  <div class="flashcard">
+    <div class="flashcard-inner">
+      <div class="flashcard-front">
+        <span class="flashcard-label">Concept</span>
+        <p>What is the default retention period in Kafka?</p>
+      </div>
+      <div class="flashcard-back">
+        <span class="flashcard-label">Answer</span>
+        <p>7 days (168 hours)</p>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+### 2. Knowledge Checks (Quizzes)
+Use these inline to verify understanding. Use `data-correct="true"` on the correct option. You can provide specific feedback for correct and incorrect answers using `data-feedback`.
+```html
+<div class="quiz-container">
+  <div class="quiz-question">Which Kafka component manages partition leadership?</div>
+  <div class="quiz-options">
+    <div class="quiz-option" data-correct="false">Producer</div>
+    <div class="quiz-option" data-correct="true">The Controller</div>
+    <div class="quiz-option" data-correct="false">Consumer Group</div>
+  </div>
+  <div class="quiz-feedback">
+    <div data-feedback="correct">
+      <strong>Correct!</strong> The Controller broker is responsible for managing partition leadership and replicas.
+    </div>
+    <div data-feedback="incorrect">
+      <strong>Not quite.</strong> While Producers send data, the Controller manages the internal state of partition leadership.
+    </div>
+    <div data-feedback="general">
+      <em>Tip: There is only one Controller in a Kafka cluster at any time.</em>
+    </div>
+  </div>
+</div>
+```
+
+### 3. Process Steppers
+Ideal for multi-stage walkthroughs (handshakes, algorithms).
+```html
+<div class="stepper">
+  <div class="stepper-header">
+    <div class="stepper-dot is-active"></div>
+    <div class="stepper-dot"></div>
+  </div>
+  <div class="stepper-content-wrapper">
+    <div class="stepper-step is-active">
+      <h3>Step 1: Initiation</h3>
+      <p>The client sends a SYN packet to the server...</p>
+    </div>
+    <div class="stepper-step">
+      <h3>Step 2: Acknowledgment</h3>
+      <p>The server responds with SYN-ACK...</p>
+    </div>
+  </div>
+  <div class="stepper-controls">
+    <button class="stepper-btn is-prev">Back</button>
+    <button class="stepper-btn is-next">Next</button>
+  </div>
+</div>
+```
+
+### 4. Comparison Sliders
+Use to compare two states or architectures (e.g., standard vs optimized).
+```html
+<div class="comparison-container">
+  <div class="comparison-before">
+    <img src="unoptimized.png" alt="Unoptimized Architecture">
+    <span class="comparison-label">Before</span>
+  </div>
+  <div class="comparison-after">
+    <img src="optimized.png" alt="Optimized Architecture">
+    <span class="comparison-label">After</span>
+  </div>
+  <div class="comparison-handle"></div>
+</div>
+```
+
+### 5. Interactive Primitives (Explorable Explanations)
+Use range inputs and a linked value display to create simple parameter-tuning widgets.
+```html
+<div class="primitive-control-group">
+  <div class="primitive-control">
+    <label class="primitive-label">
+      Batch Size (KB)
+      <span class="primitive-value">16</span>
+    </label>
+    <input type="range" min="1" max="128" value="16" id="batch-size-slider">
+  </div>
+</div>
+```
 
 ## Example Requests That Should Trigger This Skill
 1. "Create an interactive HTML article that teaches Kafka consumer group rebalancing."
