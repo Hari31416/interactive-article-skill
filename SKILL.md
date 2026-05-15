@@ -98,6 +98,7 @@ The article's voice must be spartan, informative, and authoritative. Use clear, 
 - **Clean HTML Output:** No markdown, asterisks, or literal formatting symbols in the final HTML. Use `<strong>`, `<em>` for emphasis.
 - **Brevity & Sentence Structure:** Keep sentences short and highly scannable. Break long multi-clause blocks into independent thoughts.
 - **No Fluff:** Remove any content that does not directly advance the reader's understanding of the technical subject matter.
+- **Avoid Excessive Use of Horizontal Rules:** Do not use horizontal rules (`<hr>`) or similar elements to separate sections. Use semantic HTML tags like `<section>` and `<article>` to create a well-structured document.
 
 ## Required Output Contract & Hard Constraints
 
