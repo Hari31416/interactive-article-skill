@@ -38,7 +38,10 @@ def merge_html(input_path: Path, output_path: Path) -> None:
     base_dir = input_path.parent
 
     # 1. Inline stylesheets
-    link_pattern = re.compile(r"<link\s+[^>]+>", flags=re.IGNORECASE)
+    # re.DOTALL ensures multiline <link> tags (e.g. Google Fonts) are fully matched.
+    link_pattern = re.compile(r"<link\s[^>]*>", flags=re.IGNORECASE | re.DOTALL)
+    inlined_css: list[str] = []
+    inlined_js: list[str] = []
     matches = list(link_pattern.finditer(content))
     for match in reversed(matches):
         tag_text = match.group(0)
@@ -60,6 +63,7 @@ def merge_html(input_path: Path, output_path: Path) -> None:
                     content = (
                         content[: match.start()] + replacement + content[match.end() :]
                     )
+                    inlined_css.append(href)
 
     # 2. Inline scripts
     script_pattern = re.compile(
@@ -83,10 +87,20 @@ def merge_html(input_path: Path, output_path: Path) -> None:
                 content = (
                     content[: match.start()] + replacement + content[match.end() :]
                 )
+                inlined_js.append(src)
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(content, encoding="utf-8")
     logger.info(f"Successfully generated standalone HTML: {output_path}")
+    logger.info(f"  Inlined CSS  : {inlined_css if inlined_css else 'none'}")
+    logger.info(f"  Inlined JS   : {inlined_js if inlined_js else 'none'}")
+    skipped = [
+        m.group(0)[:60].replace("\n", " ")
+        for m in link_pattern.finditer(content)
+        if "stylesheet" in m.group(0).lower()
+    ]
+    if skipped:
+        logger.warning(f"  Skipped (external) stylesheets: {skipped}")
 
 
 def main() -> int:

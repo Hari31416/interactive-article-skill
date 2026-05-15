@@ -32,7 +32,7 @@ This copies:
 - `script.js`
 - `template.html` -> `<topic>.html` (or `template.html` if `--article-file` is omitted)
 
-> Note: Since there are more than one file getting copied, try to copy teh files inside a new directory to avoid confusion. For example, you can create a new directory called `kafka-rebalance-article` and copy the files there.
+> Note: Since there are more than one file getting copied, try to copy the files inside a new directory to avoid confusion. For example, you can create a new directory called `kafka-rebalance-article` and copy the files there.
 
 ## Creating a Standalone Single-File HTML
 
@@ -101,6 +101,48 @@ Prioritize rich visual demonstrations over "walls of text."
 - **Visual Explanations over Text Walls:** Whenever introducing abstract system lifecycles, topologies, or protocols, leverage custom inline SVG diagrams, animated state flows, or interactive widgets. Demonstrate concepts visually instead of relying on long descriptive paragraphs.
 - **Diagram Captions:** Every diagram, figure, or visual asset must include a descriptive, centered caption using the `<figcaption>` tag.
 - **Emotional Engagement:** Ensure interactive elements feel dynamic, visually polished, and immediately engaging. Use micro-animations and transitions to provide "delight" during the learning process.
+
+#### SVG Diagram Conventions
+When building inline SVG diagrams, follow these conventions for consistency:
+- **ViewBox:** Always set `viewBox="0 0 W H"` explicitly and `width="100%"` so diagrams are responsive.
+- **Colors:** Map to CSS variables where possible via `style` attributes: e.g. `fill="#2563eb"` for accent, `fill="#1e293b"` for dark backgrounds, `fill="#94a3b8"` for muted labels.
+- **Typography:** Use `font-family="Inter, sans-serif"` and `font-size` in px units. Keep label text short.
+- **Arrows:** Draw arrows with `<line>` + `<polygon>` for arrowheads, or use `<marker>` with `markerUnits="strokeWidth"`.
+- **Grouping:** Wrap each logical element in a `<g>` with a descriptive comment.
+- **Border/container:** Wrap the SVG in a `<figure>` and always include a `<figcaption>`.
+
+Minimal skeleton:
+```html
+<figure>
+  <svg viewBox="0 0 600 200" width="100%" xmlns="http://www.w3.org/2000/svg">
+    <!-- Producer node -->
+    <g>
+      <rect x="20" y="70" width="120" height="60" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+      <text x="80" y="105" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#1e293b">Producer</text>
+    </g>
+    <!-- Arrow -->
+    <line x1="140" y1="100" x2="200" y2="100" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+    <defs>
+      <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+        <path d="M0,0 L0,6 L8,3 z" fill="#64748b"/>
+      </marker>
+    </defs>
+  </svg>
+  <figcaption>Caption describing what the diagram shows.</figcaption>
+</figure>
+```
+
+### 6. Mathematical Notation
+For articles covering algorithms, formulas, or performance models, load MathJax via CDN in `<head>`:
+```html
+<script>
+  window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] } };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+```
+- Use `\(...\)` for inline math: e.g. `\(k_1\)` renders as *k₁*.
+- Use `\[...\]` for block (display) math.
+- Do not use MathJax for simple subscripts or superscripts that HTML `<sub>`/`<sup>` tags handle cleanly.
 
 ### 6. Structural Elements & Technical Depth
 Articles should target highly actionable, complete engineering guides covering internal primitives, comparison matrixes, edge-case mitigation, and production lifecycle considerations.
@@ -198,8 +240,10 @@ Best for terminology, constants, or key constraints. Wrap them in a `.flashcard-
 
 ### 2. Knowledge Checks (Quizzes)
 Use these inline to verify understanding. Use `data-correct="true"` on the correct option. You can provide specific feedback for correct and incorrect answers using `data-feedback`.
+
+To allow the reader to retry after a wrong answer, add `data-allow-retry="true"` to the `.quiz-container`. A **Try Again** button will appear automatically in the feedback area after an incorrect selection.
 ```html
-<div class="quiz-container">
+<div class="quiz-container" data-allow-retry="true">
   <div class="quiz-question">Which Kafka component manages partition leadership?</div>
   <div class="quiz-options">
     <div class="quiz-option" data-correct="false">Producer</div>
@@ -221,7 +265,7 @@ Use these inline to verify understanding. Use `data-correct="true"` on the corre
 ```
 
 ### 3. Process Steppers
-Ideal for multi-stage walkthroughs (handshakes, algorithms).
+Ideal for multi-stage walkthroughs (handshakes, algorithms). A **Step N of M** counter is automatically injected into the header by `script.js` — you do not need to add it manually.
 ```html
 <div class="stepper">
   <div class="stepper-header">
@@ -245,8 +289,10 @@ Ideal for multi-stage walkthroughs (handshakes, algorithms).
 </div>
 ```
 
-### 4. Comparison Sliders
-Use to compare two states or architectures (e.g., standard vs optimized).
+### 4. Comparison Components
+Two variants are available:
+
+**Image slider** — drag a handle to reveal a before/after image pair. Use when comparing screenshots or architecture diagrams rendered as images.
 ```html
 <div class="comparison-container">
   <div class="comparison-before">
@@ -258,6 +304,28 @@ Use to compare two states or architectures (e.g., standard vs optimized).
     <span class="comparison-label">After</span>
   </div>
   <div class="comparison-handle"></div>
+</div>
+```
+
+**Tab switcher** — toggle between two panels of text, code, or any HTML content. Use this for code comparisons, config diffs, or any non-image before/after.
+```html
+<div class="comparison-tabs">
+  <div class="comparison-tab-headers">
+    <button class="comparison-tab-btn is-active" data-tab="before">Before</button>
+    <button class="comparison-tab-btn" data-tab="after">After</button>
+  </div>
+  <div class="comparison-tab-panel is-active" data-panel="before">
+    <div class="code-container">
+      <div class="code-header"><div class="code-label">naive.py</div><button class="copy-btn">Copy</button></div>
+      <pre><code># Unoptimized code here</code></pre>
+    </div>
+  </div>
+  <div class="comparison-tab-panel" data-panel="after">
+    <div class="code-container">
+      <div class="code-header"><div class="code-label">optimized.py</div><button class="copy-btn">Copy</button></div>
+      <pre><code># Optimized code here</code></pre>
+    </div>
+  </div>
 </div>
 ```
 
