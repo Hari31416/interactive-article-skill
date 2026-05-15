@@ -126,6 +126,11 @@ Articles that feature embedded JavaScript widgets must adhere to these rules:
 - **State Management & Direct DOM Manipulation:** Keep script logic self-contained. Maintain a local state object per widget. Build intuitive interactive logic loops: user trigger → state update → DOM update.
 - **Event Binding & Reactivity:** Bind explicit event listeners for each control. Re-render all dependent UI elements on state change.
 - **Visible Transitions:** Reflect state transitions visibly (status text, counters, highlighted steps, diagrams, etc.).
+- **Simulator Formula Transparency:** Every widget that derives output values from a formula (e.g. a slider that computes estimated recall, latency, throughput, or memory from a numeric input) **must** include a collapsible `<details class="formula-details">` block immediately below the widget output area. The block must:
+  1. Use `<summary class="formula-summary">How are these values calculated?</summary>` as the toggle label.
+  2. Show each derived metric with a short plain-English description of the model, followed by the exact formula in a `.code-container` code block.
+  3. End with a one-sentence disclaimer stating the assumptions behind the approximation (dataset size, hardware, implementation used).
+  This makes the simulation educational rather than decorative — the reader can inspect the model and decide whether it applies to their situation.
 
 ## Component Usage Gate
 
@@ -181,6 +186,7 @@ Articles that feature embedded JavaScript widgets must adhere to these rules:
 - Direct address ("you/your") used throughout
 - No generalizations, metaphors, or clichés
 - Every diagram/visual asset includes a descriptive `<figcaption>` caption
+- Every computing simulator has a `<details class="formula-details">` block revealing its formulas and model assumptions
 
 ## Be Creative with Visuals
 
